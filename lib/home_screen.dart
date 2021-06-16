@@ -13,13 +13,13 @@ class _HomeScreenState extends State<HomeScreen>{
 
 
   TextEditingController queryController=TextEditingController();
-  final BOT_URL = Uri.parse("https://chatbotliqahona.herokuapp.com/chat");
+  final BOT_URL = Uri.parse("https://chatbotliq.herokuapp.com/chat");
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.purpleAccent,
         centerTitle: true,
         title: Text(
           "chatBot",
@@ -71,25 +71,25 @@ class _HomeScreenState extends State<HomeScreen>{
   }
 
   //response
-void getResponse(){
+  void getResponse(){
     if(queryController.text.length>0){
       this.insertSingleItem(queryController.text);
-      var client =getClient();
+      var client = getClient();
       try{
         client.post(
           BOT_URL,
-          body: {"inp":queryController.text},
-        )..then((responses){
+          body: {"message":queryController.text},
+        ).then((responses){
           print(responses.body);
           Map<String,dynamic> data=jsonDecode(responses.body);
-          insertSingleItem(data["responses"]+"<chat>");
+          insertSingleItem(data['message']+"<chat>");
         });
       }finally{
         client.close();
         queryController.clear();
       }
     }
-}
+  }
 
 void insertSingleItem(String message){
     _data.add(message);
