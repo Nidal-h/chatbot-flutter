@@ -13,7 +13,7 @@ class _HomeScreenState extends State<HomeScreen>{
 
 
   TextEditingController queryController=TextEditingController();
-  final BOT_URL = Uri.parse("https://chatbotliqahona.herokuapp.com/chat");
+  final BOT_URL = Uri.parse("https://chatbotliq.herokuapp.com/chat");
   @override
   Widget build(BuildContext context){
     return Scaffold(
