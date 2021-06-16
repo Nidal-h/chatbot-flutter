@@ -17,9 +17,9 @@ class _HomeScreenState extends State<HomeScreen>{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.green,
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.purpleAccent,
         centerTitle: true,
         title: Text(
           "chatBot",
@@ -71,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen>{
   }
 
   //response
-void getResponse(){
+  void getResponse(){
     if(queryController.text.length>0){
       this.insertSingleItem(queryController.text);
       var client = getClient();
@@ -80,16 +80,15 @@ void getResponse(){
           BOT_URL,
           body: {"message":queryController.text},
         ).then((responses){
-          print(responses.body);
-          //Map<String,dynamic> data=jsonDecode(responses.body);
-          insertSingleItem(responses.body+"<chat>");
+          Map<String,dynamic> data=jsonDecode(responses.body);
+          insertSingleItem(data['message']+"<chat>");
         });
       }finally{
         client.close();
         queryController.clear();
       }
     }
-}
+  }
 
 void insertSingleItem(String message){
     _data.add(message);
